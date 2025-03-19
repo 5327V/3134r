@@ -9,7 +9,7 @@
 #define inertial pros::Imu
 
 // dt hardware objects
-std::vector<int8_t> odomAccessories = {
+inline std::vector<int8_t> odomAccessories = {
     -15, -12, -19, // left motors
     13,  6,   16, // right motors
     -11, // vertical tracker wheel
@@ -18,25 +18,25 @@ std::vector<int8_t> odomAccessories = {
 };
 
 // dt motors
-motorGroup leftMotors({odomAccessories[0], odomAccessories[1], odomAccessories[2]}, pros::MotorGearset::blue);
-motorGroup rightMotors({odomAccessories[3], odomAccessories[4], odomAccessories[5]}, pros::MotorGearset::blue);
+inline motorGroup leftMotors({odomAccessories[0], odomAccessories[1], odomAccessories[2]}, pros::MotorGearset::blue);
+inline motorGroup rightMotors({odomAccessories[3], odomAccessories[4], odomAccessories[5]}, pros::MotorGearset::blue);
 
 // imu
-inertial imu(odomAccessories[8]);
+inline inertial imu(odomAccessories[8]);
 
 //vertical tracker
-rot verticalEnc(odomAccessories[6]);
-lemlib::TrackingWheel vertical(&verticalEnc, lemlib::Omniwheel::NEW_275, 0);
+inline rot verticalEnc(odomAccessories[6]);
+inline lemlib::TrackingWheel vertical(&verticalEnc, lemlib::Omniwheel::NEW_275, 0);
 
 //horizontal tracker
-rot horizontalEnc(odomAccessories[7]);
-lemlib::TrackingWheel horizontal(&horizontalEnc, lemlib::Omniwheel::NEW_275, -2.32);
+inline rot horizontalEnc(odomAccessories[7]);
+inline lemlib::TrackingWheel horizontal(&horizontalEnc, lemlib::Omniwheel::NEW_275, -2.32);
 
 //---
 
 //overall dt setup
 
-lemlib::Drivetrain drivetrain(&leftMotors, // left motor group
+inline lemlib::Drivetrain drivetrain(&leftMotors, // left motor group
                               &rightMotors, // right motor group
                               11.5, // 10 inch track width
                               lemlib::Omniwheel::NEW_325, // using new 4" omnis
@@ -44,7 +44,7 @@ lemlib::Drivetrain drivetrain(&leftMotors, // left motor group
                               2 // horizontal drift is 2. If we had traction wheels, it would have been 8
 );
 
-lemlib::OdomSensors sensors(&vertical, // vertical tracking wheel
+inline lemlib::OdomSensors sensors(&vertical, // vertical tracking wheel
                             nullptr, // vertical tracking wheel 2, set to nullptr as we don't have a second one
                             &horizontal, // horizontal tracking wheel
                             nullptr, // horizontal tracking wheel 2, set to nullptr as we don't have a second one
@@ -52,16 +52,16 @@ lemlib::OdomSensors sensors(&vertical, // vertical tracking wheel
 );
 
 // input curve for throttle input during driver control
-lemlib::ExpoDriveCurve throttleCurve(3, // joystick deadband out of 127
+inline lemlib::ExpoDriveCurve throttleCurve(3, // joystick deadband out of 127
                                      10, // minimum output where drivetrain will move out of 127
                                      1.026 // expo curve gain
 );
 
 // input curve for steer input during driver control
-lemlib::ExpoDriveCurve steerCurve(3, // joystick deadband out of 127
+inline lemlib::ExpoDriveCurve steerCurve(3, // joystick deadband out of 127
                                   10, // minimum output where drivetrain will move out of 127
                                   1.026 // expo curve gain
 );
 
 // create the chassis
-extern lemlib::Chassis chassis(drivetrain, linearController, angularController, sensors, &throttleCurve, &steerCurve);
+inline lemlib::Chassis chassis(drivetrain, linearController, angularController, sensors, &throttleCurve, &steerCurve);

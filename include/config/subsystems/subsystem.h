@@ -5,10 +5,10 @@
 #include "dt.h"
 
 //create new thread instance
-extern void runSubSystemsTasksF(intakeState intakeSpeed, bool holdOn, bool triggerAntiJam){
+inline void runSubSystemsTasksF(intakeState intakeSpeed, bool holdOn, bool triggerAntiJam){
     //calibrate chassis
     chassis.calibrate();
-    
+
     //remove current intake task
     intakeTask = nullptr;
     intakeTask->remove();
@@ -34,6 +34,7 @@ extern void runSubSystemsTasksF(intakeState intakeSpeed, bool holdOn, bool trigg
     if(neutralTask == nullptr){
         neutralTask = new pros::Task([=]{
             
+            liftTaskF();
 
 
         });

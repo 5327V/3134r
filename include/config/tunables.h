@@ -16,7 +16,7 @@
 
 
 // lateral motion controller
-lemlib::ControllerSettings linearController(12, // proportional gain (kP)
+inline lemlib::ControllerSettings linearController(12, // proportional gain (kP)
                                             0, // integral gain (kI)
                                             75, // derivative gain (kD)
                                             3, // anti windup
@@ -28,7 +28,7 @@ lemlib::ControllerSettings linearController(12, // proportional gain (kP)
 );
 
 // angular motion controller
-lemlib::ControllerSettings angularController(6, // proportional gain (kP)
+inline lemlib::ControllerSettings angularController(6, // proportional gain (kP)
                                              0, // integral gain (kI)
                                              26, // derivative gain (kD)
                                              3, // anti windup
@@ -39,4 +39,4 @@ lemlib::ControllerSettings angularController(6, // proportional gain (kP)
                                              0 // maximum acceleration (slew)
 );
 
-lemlib::PID* liftPID = new lemlib::PID(1,0,1);
+inline lemlib::PID* liftPID = new lemlib::PID(1,0,1);
