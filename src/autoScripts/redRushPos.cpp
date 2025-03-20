@@ -21,10 +21,10 @@ void redRushPos(){
     intake.move(127);
     exit_condition(lemlib::Pose(-8,31),1.5);
     arm.set_value(1);
-    chassis.moveToPoint(-11, 17, 3000, {.forwards = false});
+    chassis.moveToPoint(-11, 17, 15000, {.forwards = false});
     chassis.waitUntil(10);
     intake.move(15);
-    chassis.waitUntilDone();
+    exit_condition(lemlib::Pose(-11, 17), 2);
     arm.set_value(0);
     chassis.turnToHeading(180, 600);
     chassis.moveToPoint(-3, 45, 5000, {.forwards = false});
