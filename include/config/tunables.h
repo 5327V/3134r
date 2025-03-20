@@ -39,4 +39,8 @@ inline lemlib::ControllerSettings angularController(6, // proportional gain (kP)
                                              0 // maximum acceleration (slew)
 );
 
-inline lemlib::PID* liftPID = new lemlib::PID(1,0,1);
+inline lemlib::PID* liftPID = new lemlib::PID(1, // kP
+        0.004, // kI
+        3, // kD
+        7, // integral anti windup range
+        false);

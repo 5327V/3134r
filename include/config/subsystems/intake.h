@@ -1,9 +1,9 @@
 #pragma once
 
 
-#include "hardware.h"
-#include "match.h"
-#include "tunables.h"
+#include "../hardware.h"
+#include "../match.h"
+#include "../tunables.h"
 
 bool antiJamActive = true;
 bool colorSortingOn = true;
@@ -184,3 +184,19 @@ extern void intakeThreadF(intakeState intakeSpeed, bool holdOn, bool triggerAnti
         pros::delay(UTIL_TIME);
     }
 }}
+
+inline void run_intake(intakeState intakeSpeed, bool holdOn, bool triggerAntiJam){
+    //remove current intake task
+    intakeTask = nullptr;
+    intakeTask->remove();
+
+    //if removed, run a new intake instance
+    if(intakeTask == nullptr){
+        intakeTask = new pros::Task([=]{
+            
+            intakeThreadF(intakeSpeed, holdOn, triggerAntiJam);
+            
+            
+        });
+    }
+};

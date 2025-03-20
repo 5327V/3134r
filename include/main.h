@@ -35,7 +35,15 @@
 #define PROS_USE_LITERALS
 
 #include "api.h"
-
+#include "config/subsystems/intake.h"
+#include "config/subsystems/ladybrown.h"
+#include "config/subsystems/subsystem.h"
+#include "config/dt.h"
+#include "config/hardware.h"
+#include "config/match.h"
+#include "config/tunables.h"
+#include "drivercontrol.h"
+#include "autoScripts.h"
 /**
  * You should add more #includes here
  */

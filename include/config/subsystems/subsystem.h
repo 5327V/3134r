@@ -2,26 +2,13 @@
 
 #include "intake.h"
 #include "ladybrown.h"
-#include "dt.h"
+#include "../dt.h"
 
 //create new thread instance
-inline void runSubSystemsTasksF(intakeState intakeSpeed, bool holdOn, bool triggerAntiJam){
+inline void runSubSystemsTasksF(){
     //calibrate chassis
     chassis.calibrate();
 
-    //remove current intake task
-    intakeTask = nullptr;
-    intakeTask->remove();
-
-    //if removed, run a new intake instance
-    if(intakeTask == nullptr){
-        intakeTask = new pros::Task([=]{
-            
-            intakeThreadF(intakeSpeed, holdOn, triggerAntiJam);
-            
-            
-        });
-    }
 
     //if removed, run a new neutral instance
     ladyBrown.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);

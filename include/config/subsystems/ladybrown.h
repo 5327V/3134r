@@ -1,8 +1,8 @@
 #pragma once
 
-#include "hardware.h"
-#include "match.h"
-#include "tunables.h"
+#include "../hardware.h"
+#include "../match.h"
+#include "../tunables.h"
 
 pros::Task* neutralTask = nullptr;
 
@@ -36,6 +36,7 @@ inline void resetLift(double position){
     ladyBrownRot.set_position(position);
     liftPID->reset();
 }
+
 
 inline void liftTaskF(){
     bool isDPressed;
@@ -76,6 +77,15 @@ inline void liftTaskF(){
             else if(master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)){
                 disableControl = true;
                 ladyBrown.move(-127);
+            } 
+            
+            else if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_DOWN)){
+		        isDPressed = !isDPressed;
+		        if(isDPressed){
+			        setLiftTarget(neutralTargets::HOVER, 127);
+		        } else{
+			        setLiftTarget(neutralTargets::DESCORE, 127);
+	            }
             }
 
             else {
@@ -90,8 +100,16 @@ inline void liftTaskF(){
             if(!disableControl){
                 ladyBrown.move(power);
             }
+            pros::delay(UTIL_TIME);
+        } else{
+            //auton
+            if(!disableControl){
+                ladyBrown.move(power);
+            }
+
+            pros::delay(UTIL_TIME);
         }
-        pros::delay(UTIL_TIME);
+        
     }
     
 }
